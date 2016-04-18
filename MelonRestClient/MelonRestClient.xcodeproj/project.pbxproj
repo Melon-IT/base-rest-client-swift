@@ -10,6 +10,9 @@
 		4023C7AC1C67AF1B00EEB929 /* MelonRestClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 4023C7AB1C67AF1B00EEB929 /* MelonRestClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4023C7B31C67AF1B00EEB929 /* MelonRestClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4023C7A81C67AF1B00EEB929 /* MelonRestClient.framework */; };
 		4023C7B81C67AF1B00EEB929 /* MelonRestClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4023C7B71C67AF1B00EEB929 /* MelonRestClientTests.swift */; };
+		402471F21CC54B1000535EC7 /* MBFRestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402471F11CC54B1000535EC7 /* MBFRestClient.swift */; };
+		402471FB1CC55AEC00535EC7 /* MBFRequestFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402471FA1CC55AEC00535EC7 /* MBFRequestFrame.swift */; };
+		402471FD1CC5697800535EC7 /* MBFNetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402471FC1CC5697800535EC7 /* MBFNetworkMonitor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +32,9 @@
 		4023C7B21C67AF1B00EEB929 /* MelonRestClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MelonRestClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4023C7B71C67AF1B00EEB929 /* MelonRestClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MelonRestClientTests.swift; sourceTree = "<group>"; };
 		4023C7B91C67AF1B00EEB929 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		402471F11CC54B1000535EC7 /* MBFRestClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBFRestClient.swift; sourceTree = "<group>"; };
+		402471FA1CC55AEC00535EC7 /* MBFRequestFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBFRequestFrame.swift; sourceTree = "<group>"; };
+		402471FC1CC5697800535EC7 /* MBFNetworkMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBFNetworkMonitor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +79,9 @@
 			children = (
 				4023C7AB1C67AF1B00EEB929 /* MelonRestClient.h */,
 				4023C7AD1C67AF1B00EEB929 /* Info.plist */,
+				402471F11CC54B1000535EC7 /* MBFRestClient.swift */,
+				402471FA1CC55AEC00535EC7 /* MBFRequestFrame.swift */,
+				402471FC1CC5697800535EC7 /* MBFNetworkMonitor.swift */,
 			);
 			path = MelonRestClient;
 			sourceTree = "<group>";
@@ -142,7 +151,7 @@
 		4023C79F1C67AF1B00EEB929 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0720;
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Melon-IT";
 				TargetAttributes = {
@@ -194,6 +203,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				402471F21CC54B1000535EC7 /* MBFRestClient.swift in Sources */,
+				402471FB1CC55AEC00535EC7 /* MBFRequestFrame.swift in Sources */,
+				402471FD1CC5697800535EC7 /* MBFNetworkMonitor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,6 +320,7 @@
 		4023C7BD1C67AF1B00EEB929 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -318,12 +331,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.melon-it.MelonRestClient";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		4023C7BE1C67AF1B00EEB929 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -376,6 +391,7 @@
 				4023C7BE1C67AF1B00EEB929 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4023C7BF1C67AF1B00EEB929 /* Build configuration list for PBXNativeTarget "MelonRestClientTests" */ = {
 			isa = XCConfigurationList;
@@ -384,6 +400,7 @@
 				4023C7C11C67AF1B00EEB929 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
