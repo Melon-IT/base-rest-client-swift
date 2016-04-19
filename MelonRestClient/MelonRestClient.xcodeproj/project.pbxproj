@@ -77,11 +77,11 @@
 		4023C7AA1C67AF1B00EEB929 /* MelonRestClient */ = {
 			isa = PBXGroup;
 			children = (
-				4023C7AB1C67AF1B00EEB929 /* MelonRestClient.h */,
-				4023C7AD1C67AF1B00EEB929 /* Info.plist */,
 				402471F11CC54B1000535EC7 /* MBFRestClient.swift */,
 				402471FA1CC55AEC00535EC7 /* MBFRequestFrame.swift */,
 				402471FC1CC5697800535EC7 /* MBFNetworkMonitor.swift */,
+				4023C7AD1C67AF1B00EEB929 /* Info.plist */,
+				4023C7AB1C67AF1B00EEB929 /* MelonRestClient.h */,
 			);
 			path = MelonRestClient;
 			sourceTree = "<group>";

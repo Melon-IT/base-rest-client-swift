@@ -28,7 +28,7 @@ public protocol MBFSilentAuthorizationProtocol {
   func silentAuthorization()
 }
 
-public protocol MBFRestClientDataProtocol {
+public protocol MBFRestClientResponseDataProtocol: class {
   func processData(data: AnyObject)
 }
 
