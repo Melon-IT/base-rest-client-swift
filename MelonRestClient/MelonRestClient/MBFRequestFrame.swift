@@ -17,7 +17,9 @@ public enum MBFRequestHTTPMethod {
 
 public class MBFRequestFrame {
   
-  public init(httpMethod: MBFRequestHTTPMethod, responseDataDelegate: MBFRestClientResponseDataProtocol?) {
+  public init(httpMethod: MBFRequestHTTPMethod,
+              responseDataDelegate: MBFRestClientResponseDataProtocol?) {
+    
     self.httpMethod = httpMethod
     self.responseDataDelegate = responseDataDelegate
     self.header = Dictionary<String,String>()
@@ -52,7 +54,5 @@ public class MBFRequestFrame {
   public private(set) var body: NSData?
   
   public var identifier : UInt?
-  
-  
-  
+
 }
