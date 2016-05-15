@@ -8,10 +8,13 @@
 
 import Foundation
 
-public enum MBFRestClientNetworkType {
-  case None
-  case WiFi
-  case WWAN
+ public struct MBFRestClientNetworkType: OptionSetType {
+  public let rawValue: Int
+  
+  public init(rawValue: Int) {self.rawValue = rawValue}
+  
+  static let WiFi = MBFRestClientNetworkType(rawValue: 1)
+  static let WWAN = MBFRestClientNetworkType(rawValue: 2)
 }
 
 public protocol MBFNetworkAvailabilityProtocol: class {

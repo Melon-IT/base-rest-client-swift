@@ -23,36 +23,38 @@ public class MBFRequestFrame {
     self.httpMethod = httpMethod
     self.responseDataDelegate = responseDataDelegate
     self.header = Dictionary<String,String>()
+    self.uriParameters = Dictionary<String,String>()
+    //NSURL
   }
   
   public weak private(set) var responseDataDelegate: MBFRestClientResponseDataProtocol?
   
   public private(set) var httpMethod: MBFRequestHTTPMethod
   
+  public private(set) var uriParameters: Dictionary<String,String>?
+  public private(set) var body: NSData?
+  public var identifier : UInt?
+  
   public var uri: String {
     return ""
   }
   
   public func setUriParameterValue(value: String, key: String) {
-    fatalError("unimplemented")
+    self.uriParameters?[key] = value
   }
   
   public func clearUriParameters() {
-    fatalError("unimplemented")
+    self.uriParameters?.removeAll()
   }
   
   public private(set) var header: Dictionary<String,String>?
   
   public func setHeaderValue(value: String, key: String) {
-    fatalError("unimplemented")
+    self.header?[key] = value
   }
   
   public func clearHeaderParameters() {
-    fatalError("unimplemented")
+    self.header?.removeAll()
   }
-  
-  public private(set) var body: NSData?
-  
-  public var identifier : UInt?
 
 }
