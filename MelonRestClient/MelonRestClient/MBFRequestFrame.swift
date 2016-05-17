@@ -13,6 +13,22 @@ public enum MBFRequestHTTPMethod {
   case POST
   case PUT
   case DELETE
+  
+  func stringValue() -> String {
+    let result: String
+    switch self {
+    case .GET:
+      result = "GET"
+    case .POST:
+      result = "POST"
+    case .PUT:
+      result = "PUT"
+    case .DELETE:
+      result = "DELETE"
+    }
+    
+    return result
+  }
 }
 
 public class MBFRequestFrame {
@@ -47,14 +63,13 @@ public class MBFRequestFrame {
     self.uriParameters?.removeAll()
   }
   
-  public private(set) var header: Dictionary<String,String>?
+  public private(set) var header: Dictionary<String,String>
   
   public func setHeaderValue(value: String, key: String) {
-    self.header?[key] = value
+    self.header[key] = value
   }
   
   public func clearHeaderParameters() {
-    self.header?.removeAll()
+    self.header.removeAll()
   }
-
 }

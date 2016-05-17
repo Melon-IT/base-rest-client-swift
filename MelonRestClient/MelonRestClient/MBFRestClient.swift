@@ -8,7 +8,7 @@
 
 import Foundation
 
- public struct MBFRestClientNetworkType: OptionSetType {
+public struct MBFRestClientNetworkType: OptionSetType {
   public let rawValue: Int
   
   public init(rawValue: Int) {self.rawValue = rawValue}
@@ -35,12 +35,24 @@ public protocol MBFRestClientResponseDataProtocol: class {
   func processData(data: AnyObject)
 }
 
+public protocol MBFRestClientStatusCodeProtocol: class {
+  func isSuccessForCode(code: Int) -> Bool
+}
+
+public protocol MBFRestClientDataConverterProtocol: class {
+  func convertData(data: NSData?, requestIdentifier: UInt?) -> AnyObject
+}
+
+typealias MBFRestResponse = (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void
+
 public class MBFRestClient {
+  
   public weak var activityDelegate: MBFRestClientActivityProtocol?
   public weak var networkDelegate: MBFNetworkAvailabilityProtocol?
   public weak var authorizationDelegate: MBFSilentAuthorizationProtocol?
+  public weak var statusCodeDelegate: MBFRestClientStatusCodeProtocol?
+  public weak var dataConverterDelegate: MBFRestClientDataConverterProtocol?
   
-  public var lastFrame: MBFRequestFrame?
   public private(set) var webServiceURI: NSURL?
   
   public init(webServiceURI: NSURL) {
@@ -51,7 +63,51 @@ public class MBFRestClient {
     self.webServiceURI = NSURL.init(string: webServiceURIString)
   }
   
+  
+  
   public func sendRequestWithFrame(frame: MBFRequestFrame) {
-    fatalError("unimplemented")
+    if self.networkDelegate?.currentStatus == MBFRestClientNetworkType.WiFi ||
+      self.networkDelegate?.currentStatus == MBFRestClientNetworkType.WWAN {
+      
+      let request = NSMutableURLRequest()
+      
+      request.URL = self.webServiceURI?.URLByAppendingPathComponent(frame.uri)
+      request.HTTPMethod = frame.httpMethod.stringValue()
+      
+      for (key, value) in frame.header {
+        request.addValue(value, forHTTPHeaderField: key)
+      }
+      
+      if frame.httpMethod == MBFRequestHTTPMethod.POST {
+        request.HTTPBody = frame.body
+      }
+      
+      let response: MBFRestResponse = {
+        (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+        
+        dispatch_async(dispatch_get_main_queue(), {
+          self.activityDelegate?.requestActive(false)
+        })
+        
+        if let purlResponse = response as? NSHTTPURLResponse {
+          self.statusCodeDelegate?.isSuccessForCode(purlResponse.statusCode)
+          
+          if self.dataConverterDelegate != nil {
+            let responseData =
+              self.dataConverterDelegate!.convertData(data,
+                                                      requestIdentifier: frame.identifier)
+            
+            frame.responseDataDelegate?.processData(responseData)
+          }
+        }
+      }
+      
+      let dataTask =
+        NSURLSession.sharedSession().dataTaskWithRequest(request,
+                                                         completionHandler: response)
+      
+      self.activityDelegate?.requestActive(true)
+      dataTask.resume()
+    }
   }
 }
