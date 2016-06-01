@@ -24,7 +24,6 @@ public protocol MBFNetworkAvailabilityProtocol: class {
 public protocol MBFRestClientActivityProtocol: class {
   func requestActive(active: Bool)
   func expiredAuthorizationToken()
-  func serverErrorWithStatusCode(statusCode: Int)
 }
 
 public protocol MBFSilentAuthorizationProtocol: class {
@@ -32,7 +31,8 @@ public protocol MBFSilentAuthorizationProtocol: class {
 }
 
 public protocol MBFRestClientResponseDataProtocol: class {
-  func processData(data: AnyObject)
+  func processData(data: AnyObject?)
+  func serverRespondWithStatusCode(statusCode: Int)
 }
 
 public protocol MBFRestClientStatusCodeProtocol: class {
@@ -87,18 +87,13 @@ public class MBFRestClient {
           self.activityDelegate?.requestActive(false)
         })
         
-        if let purlResponse = response as? NSHTTPURLResponse,
-          let statusCode = self.statusCodeDelegate,
-          let dataConverter = self.dataConverterDelegate
-          where statusCode.isSuccessForCode(purlResponse.statusCode) == true {
-          
+        if let purlResponse = response as? NSHTTPURLResponse {
           let responseData =
-            dataConverter.convertData(data, requestIdentifier: frame.identifier)
-          
-          frame.responseDataDelegate?.processData(responseData)
-          
-        } else {
-          
+            self.dataConverterDelegate?.convertData(data,
+                                                    requestIdentifier: frame.identifier)
+            
+            frame.responseDataDelegate?.serverRespondWithStatusCode(purlResponse.statusCode)
+            frame.responseDataDelegate?.processData(responseData)
         }
       }
       
