@@ -63,8 +63,6 @@ public class MBFRestClient {
     self.webServiceURI = NSURL.init(string: webServiceURIString)
   }
   
-  
-  
   public func sendRequestWithFrame(frame: MBFRequestFrame) {
     if self.networkDelegate?.currentStatus == MBFRestClientNetworkType.WiFi ||
       self.networkDelegate?.currentStatus == MBFRestClientNetworkType.WWAN {
@@ -89,16 +87,18 @@ public class MBFRestClient {
           self.activityDelegate?.requestActive(false)
         })
         
-        if let purlResponse = response as? NSHTTPURLResponse {
-          self.statusCodeDelegate?.isSuccessForCode(purlResponse.statusCode)
+        if let purlResponse = response as? NSHTTPURLResponse,
+          let statusCode = self.statusCodeDelegate,
+          let dataConverter = self.dataConverterDelegate
+          where statusCode.isSuccessForCode(purlResponse.statusCode) == true {
           
-          if self.dataConverterDelegate != nil {
-            let responseData =
-              self.dataConverterDelegate!.convertData(data,
-                                                      requestIdentifier: frame.identifier)
-            
-            frame.responseDataDelegate?.processData(responseData)
-          }
+          let responseData =
+            dataConverter.convertData(data, requestIdentifier: frame.identifier)
+          
+          frame.responseDataDelegate?.processData(responseData)
+          
+        } else {
+          
         }
       }
       

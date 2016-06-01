@@ -16,13 +16,17 @@ public enum MBFRequestHTTPMethod {
   
   func stringValue() -> String {
     let result: String
+    
     switch self {
     case .GET:
       result = "GET"
+      
     case .POST:
       result = "POST"
+      
     case .PUT:
       result = "PUT"
+      
     case .DELETE:
       result = "DELETE"
     }
