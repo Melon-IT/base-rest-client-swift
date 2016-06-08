@@ -67,19 +67,6 @@ public class MBFRestClient {
     if self.networkDelegate?.currentStatus == MBFRestClientNetworkType.WiFi ||
       self.networkDelegate?.currentStatus == MBFRestClientNetworkType.WWAN {
       
-      let request = NSMutableURLRequest()
-      
-      request.URL = self.webServiceURI?.URLByAppendingPathComponent(frame.uri)
-      request.HTTPMethod = frame.httpMethod.stringValue()
-      
-      for (key, value) in frame.header {
-        request.addValue(value, forHTTPHeaderField: key)
-      }
-      
-      if frame.httpMethod == MBFRequestHTTPMethod.POST {
-        request.HTTPBody = frame.body
-      }
-      
       let response: MBFRestResponse = {
         (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
         
@@ -91,14 +78,14 @@ public class MBFRestClient {
           let responseData =
             self.dataConverterDelegate?.convertData(data,
                                                     requestIdentifier: frame.identifier)
-            
-            frame.responseDataDelegate?.serverRespondWithStatusCode(purlResponse.statusCode)
-            frame.responseDataDelegate?.processData(responseData)
+          
+          frame.responseDataDelegate?.serverRespondWithStatusCode(purlResponse.statusCode)
+          frame.responseDataDelegate?.processData(responseData)
         }
       }
       
       let dataTask =
-        NSURLSession.sharedSession().dataTaskWithRequest(request,
+        NSURLSession.sharedSession().dataTaskWithRequest(frame.request,
                                                          completionHandler: response)
       
       self.activityDelegate?.requestActive(true)
