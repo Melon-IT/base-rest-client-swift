@@ -78,10 +78,18 @@ public class MBFRequestFrame {
     return MBFRequestHTTPMethod(value: self.request.HTTPMethod)
   }
   
+  
   public var body: NSData? {
-    didSet {
+    get {
+      return self.request.HTTPBody
+    }
+    set {
       self.request.HTTPBody = self.body
     }
+  }
+  
+  public func prepareBody() {
+    
   }
   
   public var identifier : UInt?
@@ -89,28 +97,35 @@ public class MBFRequestFrame {
   private var urlComponents: NSURLComponents
   public let request: NSMutableURLRequest
   
-  public init(serviceURL: String,
-              path: String,
+  public init(serviceURL: NSURL,
               httpMethod: MBFRequestHTTPMethod,
               responseDataDelegate: MBFRestClientResponseDataProtocol?) {
-    
+    self.request = NSMutableURLRequest()
     self.urlComponents = NSURLComponents()
     
-    if var url = NSURL(string: serviceURL) {
-      url = url.URLByAppendingPathComponent(path)
-      self.urlComponents.scheme = url.scheme
-      self.urlComponents.host = url.host
-      self.urlComponents.port = url.port
-      self.urlComponents.user = url.user
-      self.urlComponents.password = url.password
-      self.urlComponents.path = url.path
+    self.urlComponents.scheme = serviceURL.scheme
+    self.urlComponents.host = serviceURL.host
+    self.urlComponents.port = serviceURL.port
+    self.urlComponents.user = serviceURL.user
+    self.urlComponents.password = serviceURL.password
+    self.urlComponents.path = serviceURL.path
+    
+    if let queryPath = self.urlComponents.path,
+      let url =  NSURL(string: queryPath)?.URLByAppendingPathComponent(self.path) {
+      self.urlComponents.path = queryPath + url.absoluteString
+      
+    } else {
+      self.urlComponents.path = NSURL(string: self.path)?.absoluteString
     }
     
-    self.request = NSMutableURLRequest()
     self.request.HTTPMethod = httpMethod.stringValue()
     self.request.URL = self.urlComponents.URL
     
     self.responseDataDelegate = responseDataDelegate
+  }
+  
+  public var path: String {
+    return ""
   }
   
   public func setQueryItem(name: String, value: String) {

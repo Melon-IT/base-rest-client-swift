@@ -53,14 +53,18 @@ public class MBFRestClient {
   public weak var statusCodeDelegate: MBFRestClientStatusCodeProtocol?
   public weak var dataConverterDelegate: MBFRestClientDataConverterProtocol?
   
-  public private(set) var webServiceURI: NSURL?
+  public private(set) var webServiceURI: NSURL
   
   public init(webServiceURI: NSURL) {
     self.webServiceURI = webServiceURI
   }
   
   public init(webServiceURIString: String) {
-    self.webServiceURI = NSURL.init(string: webServiceURIString)
+    if let url = NSURL.init(string: webServiceURIString) {
+      self.webServiceURI = url
+    } else {
+      self.webServiceURI = NSURL()
+    }
   }
   
   public func sendRequestWithFrame(frame: MBFRequestFrame) {
