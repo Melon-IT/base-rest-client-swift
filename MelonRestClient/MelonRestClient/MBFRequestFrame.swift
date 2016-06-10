@@ -69,6 +69,10 @@ public enum MBFRequestHTTPMethod: Int {
   }
 }
 
+public protocol MBFRestClientResponseDataProtocol: class {
+  func processData(data: AnyObject?)
+}
+
 public class MBFRequestFrame {
   
   public weak private(set) var responseDataDelegate: MBFRestClientResponseDataProtocol?
@@ -84,7 +88,7 @@ public class MBFRequestFrame {
       return self.request.HTTPBody
     }
     set {
-      self.request.HTTPBody = self.body
+      self.request.HTTPBody = newValue
     }
   }
   

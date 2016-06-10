@@ -30,11 +30,6 @@ public protocol MBFSilentAuthorizationProtocol: class {
   func silentAuthorization()
 }
 
-public protocol MBFRestClientResponseDataProtocol: class {
-  func processData(data: AnyObject?)
-  func serverRespondWithStatusCode(statusCode: Int)
-}
-
 public protocol MBFRestClientStatusCodeProtocol: class {
   func isSuccessForCode(code: Int) -> Bool
 }
@@ -68,8 +63,8 @@ public class MBFRestClient {
   }
   
   public func sendRequestWithFrame(frame: MBFRequestFrame) {
-    //if self.networkDelegate?.currentStatus == MBFRestClientNetworkType.WiFi ||
-    //  self.networkDelegate?.currentStatus == MBFRestClientNetworkType.WWAN {
+    if self.networkDelegate?.currentStatus == MBFRestClientNetworkType.WiFi ||
+      self.networkDelegate?.currentStatus == MBFRestClientNetworkType.WWAN {
       
       let response: MBFRestResponse = {
         (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
@@ -83,7 +78,6 @@ public class MBFRestClient {
             self.dataConverterDelegate?.convertData(data,
                                                     requestIdentifier: frame.identifier)
           
-          frame.responseDataDelegate?.serverRespondWithStatusCode(purlResponse.statusCode)
           frame.responseDataDelegate?.processData(responseData)
         }
       }
@@ -94,6 +88,6 @@ public class MBFRestClient {
       
       self.activityDelegate?.requestActive(true)
       dataTask.resume()
-    //}
+    }
   }
 }
