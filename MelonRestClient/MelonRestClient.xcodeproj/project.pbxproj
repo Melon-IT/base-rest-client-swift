@@ -13,6 +13,7 @@
 		402471F21CC54B1000535EC7 /* MBFRestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402471F11CC54B1000535EC7 /* MBFRestClient.swift */; };
 		402471FB1CC55AEC00535EC7 /* MBFRequestFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402471FA1CC55AEC00535EC7 /* MBFRequestFrame.swift */; };
 		402471FD1CC5697800535EC7 /* MBFNetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402471FC1CC5697800535EC7 /* MBFNetworkMonitor.swift */; };
+		40CF6C871D0ABBEF00768C36 /* MBFRestDataConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CF6C861D0ABBEF00768C36 /* MBFRestDataConverter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +36,7 @@
 		402471F11CC54B1000535EC7 /* MBFRestClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBFRestClient.swift; sourceTree = "<group>"; };
 		402471FA1CC55AEC00535EC7 /* MBFRequestFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBFRequestFrame.swift; sourceTree = "<group>"; };
 		402471FC1CC5697800535EC7 /* MBFNetworkMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBFNetworkMonitor.swift; sourceTree = "<group>"; };
+		40CF6C861D0ABBEF00768C36 /* MBFRestDataConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBFRestDataConverter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 				402471FC1CC5697800535EC7 /* MBFNetworkMonitor.swift */,
 				4023C7AD1C67AF1B00EEB929 /* Info.plist */,
 				4023C7AB1C67AF1B00EEB929 /* MelonRestClient.h */,
+				40CF6C861D0ABBEF00768C36 /* MBFRestDataConverter.swift */,
 			);
 			path = MelonRestClient;
 			sourceTree = "<group>";
@@ -205,6 +208,7 @@
 			files = (
 				402471F21CC54B1000535EC7 /* MBFRestClient.swift in Sources */,
 				402471FB1CC55AEC00535EC7 /* MBFRequestFrame.swift in Sources */,
+				40CF6C871D0ABBEF00768C36 /* MBFRestDataConverter.swift in Sources */,
 				402471FD1CC5697800535EC7 /* MBFNetworkMonitor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

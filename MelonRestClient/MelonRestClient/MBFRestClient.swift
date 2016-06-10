@@ -40,7 +40,7 @@ public protocol MBFRestClientStatusCodeProtocol: class {
 }
 
 public protocol MBFRestClientDataConverterProtocol: class {
-  func convertData(data: NSData?, requestIdentifier: UInt?) -> AnyObject
+  func convertData(data: NSData?, requestIdentifier: UInt?) -> AnyObject?
 }
 
 typealias MBFRestResponse = (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void
@@ -51,7 +51,7 @@ public class MBFRestClient {
   public weak var networkDelegate: MBFNetworkAvailabilityProtocol?
   public weak var authorizationDelegate: MBFSilentAuthorizationProtocol?
   public weak var statusCodeDelegate: MBFRestClientStatusCodeProtocol?
-  public weak var dataConverterDelegate: MBFRestClientDataConverterProtocol?
+  public var dataConverterDelegate: MBFRestClientDataConverterProtocol?
   
   public private(set) var webServiceURI: NSURL
   
@@ -68,8 +68,8 @@ public class MBFRestClient {
   }
   
   public func sendRequestWithFrame(frame: MBFRequestFrame) {
-    if self.networkDelegate?.currentStatus == MBFRestClientNetworkType.WiFi ||
-      self.networkDelegate?.currentStatus == MBFRestClientNetworkType.WWAN {
+    //if self.networkDelegate?.currentStatus == MBFRestClientNetworkType.WiFi ||
+    //  self.networkDelegate?.currentStatus == MBFRestClientNetworkType.WWAN {
       
       let response: MBFRestResponse = {
         (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
@@ -94,6 +94,6 @@ public class MBFRestClient {
       
       self.activityDelegate?.requestActive(true)
       dataTask.resume()
-    }
+    //}
   }
 }
