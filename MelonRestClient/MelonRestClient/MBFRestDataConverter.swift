@@ -11,18 +11,20 @@ import Foundation
 public class MBFJSONConverter: MBFRestClientDataConverterProtocol {
   
   public init() {
-
+    
   }
   
   public func convertData(data: NSData?, requestIdentifier: UInt?) -> AnyObject? {
-    var jsonObject: AnyObject?
+    var result = Dictionary<String, AnyObject>()
+    result["requestIdentifier"] = requestIdentifier
     
     if let jsonData = data {
-      jsonObject = try? NSJSONSerialization.JSONObjectWithData(jsonData,
+      let jsonObject = try? NSJSONSerialization.JSONObjectWithData(jsonData,
                                                                options:[NSJSONReadingOptions.AllowFragments,
                                                                 NSJSONReadingOptions.MutableContainers])
+      result["response"] = jsonObject
     }
     
-    return jsonObject
+    return result
   }
 }
