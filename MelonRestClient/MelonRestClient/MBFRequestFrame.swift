@@ -79,7 +79,7 @@ public class MBFRequestFrame {
   
   public var httpMethod: MBFRequestHTTPMethod? {
     
-    return MBFRequestHTTPMethod(value: self.request.HTTPMethod)
+    return MBFRequestHTTPMethod(value: self.request.httpMethod)
   }
   
   
